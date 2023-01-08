@@ -1,25 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
+import { METHODS } from 'http';
+import React,{FC,useState} from 'react';
 import './App.css';
+import TodoForm from './components/TodoForm';
+import TodoList from './components/TodoList';
+import Todo from './models/Todo.model';
 
-function App() {
+// 開始使用typescript
+const App:FC =()=> {
+
+const [todos,setTodos] = useState<Todo[]>([])
+
+const handleAddTodoItem = (inputValue:string) => {
+   setTodos(preTodos =>[...preTodos,{id:Math.random().toString(),description:inputValue}])
+   console.log(inputValue)
+}
+
+// todo刪除
+const handleDeleteTodoItem = (todoId:string) => {
+   setTodos(prevTods => prevTods.filter(todoItem => todoItem.id !== todoId))
+}
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+       <header className='flex items-center justify-center w-full h-24 bg-green-300'>
+          <div className='text-4xl font-bold text-center'>Learn to make Todo A Todo List</div>
+       </header>
+       <TodoForm handleAddTodoItem={handleAddTodoItem}/>
+       <TodoList data={todos} 
+       handleDeleteTodoItem={handleDeleteTodoItem}/>
     </div>
+    
   );
 }
 
