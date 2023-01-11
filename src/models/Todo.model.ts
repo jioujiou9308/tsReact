@@ -1,6 +1,4 @@
-interface Todo {
-    id:string,
-    description:string
-}
-
-export default Todo
+export interface ITask {
+    taskName: string;
+    deadline: number;
+  }
